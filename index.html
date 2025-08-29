@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoGLM2 多功能网页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+        }
+
+        .dark-mode header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: #667eea;
+            color: white;
+        }
+
+        button:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+
+        .dark-mode button {
+            background: #34495e;
+        }
+
+        .dark-mode button:hover {
+            background: #2c3e50;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .dark-mode .search-box input {
+            background: #2c3e50;
+            border-color: #34495e;
+            color: #e0e0e0;
+        }
+
+        .content-area {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .dark-mode .content-area {
+            background: #2c3e50;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .dark-mode .toc {
+            background: #34495e;
+            border-left-color: #5a6fd8;
+        }
+
+        .toc h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .dark-mode .toc h3 {
+            color: #5a6fd8;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .dark-mode .toc li {
+            border-bottom-color: #495057;
+        }
+
+        .toc a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .toc a:hover {
+            color: #667eea;
+        }
+
+        .dark-mode .toc a {
+            color: #e0e0e0;
+        }
+
+        .dark-mode .toc a:hover {
+            color: #5a6fd8;
+        }
+
+        .feature-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .dark-mode .feature-section {
+            background: #34495e;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .dark-mode .feature-card {
+            background: #2c3e50;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #333;
+            color: white;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .dark-mode footer {
+            background: #1a1a1a;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AutoGLM2 多功能网页</h1>
+            <p class="subtitle">支持夜间模式、目录、搜索、PDF导出等交互功能</p>p>
+        </header>
+
+        <div class="controls">
+            <button id="darkModeToggle">🌙 夜间模式</button>button>
+            <button id="exportPdf">📄 导出PDF</button>button>
+            <button id="copyContent">📋 复制内容</button>button>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜索内容...">
+            </div>div>
+        </div>div>
+
+        <div class="toc">
+            <h3>📑 目录</h3>
+            <ul id="tocList">
+                <li><a href="#section1">功能介绍</a>a></li>
+                <li><a href="#section2">技术特性</a>a></li>
+</li></li></h3></h1></header></body></style></title></head>
